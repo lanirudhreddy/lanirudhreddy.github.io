@@ -2,37 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lanirudhreddy</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+  <title>White Light App</title>
   <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    html, body {
       margin: 0;
-      font-family: 'Poppins', sans-serif; /* Use Poppins as the first choice, fallback to sans-serif */
-      background-color: black; /* Set the background color to black */
-      color: white; /* Set the default text color to white */
-      background: url('https://images.unsplash.com/photo-1695569292033-95db9ad99cf8?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed; /* Set the background image */
-      background-size: cover; /* Ensure the background image covers the entire screen */
+      padding: 0;
+      background: black;   /* black at 0 % */
+      height: 100%;
+      overflow: hidden;
     }
 
-    div {
-      text-align: center;
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 1;   /* start fully transparent (black screen) */
+      transition: opacity 0.2s ease;
     }
 
-    p {
-      font-size: 100px;
+    #slider-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);   /* dark panel */
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    input[type="range"] {
+      width: 300px;
     }
   </style>
 </head>
 <body>
-  <div>
-    <p>Hello🌍!</p>
+
+  <div id="overlay"></div>
+
+  <div id="slider-container">
+    <input type="range" id="brightness" min="0" max="100" value="100">
   </div>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const slider = document.getElementById('brightness');
+
+    slider.addEventListener('input', () => {
+      const value = slider.value;
+      overlay.style.opacity = value / 100;
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") {
+        overlay.style.display = "none";
+        document.getElementById('slider-container').style.display = "none";
+      }
+    });
+  </script>
+
 </body>
 </html>
