@@ -1,0 +1,59 @@
+{
+  "timeSettingsEnabled": true,
+  "hourMode": "12",
+  "showSeconds": "on",
+  "showMilliseconds": "off",
+  "showMeridiem": "off",
+  "blinkColon": "off",
+  "timeDraggable": "off",
+  "fontSettingsEnabled": true,
+  "fontFamily": "'Google Sans Flex', sans-serif",
+  "fontWeight": "400",
+  "fontSize": "180",
+  "lineHeight": "1",
+  "letterSpacing": "-15",
+  "fontStyle": "normal",
+  "textColor": "#3d1e00",
+  "bgColor": "#fffbe5",
+  "textSettingsEnabled": true,
+  "textDefaultFont": "'Google Sans Flex', sans-serif",
+  "customTextInput": "",
+  "textSize": "31",
+  "textTracking": "-1",
+  "textLineHeight": "1.05",
+  "textWeight": "500",
+  "textStyle": "normal",
+  "textFillColor": "#3d1e00",
+  "theme": "light",
+  "nextTextId": 2,
+  "textHistory": [
+    {
+      "id": 1,
+      "content": "©Planet Volumes 2026",
+      "fontSize": 23,
+      "fontFamily": "__text_default__",
+      "left": "1201px",
+      "top": "1193px",
+      "leftRatio": 0.469140625,
+      "topRatio": 0.9386309992132179
+    }
+  ],
+  "floatingBlocks": [
+    {
+      "historyId": 1,
+      "left": "1201px",
+      "top": "1193px",
+      "leftRatio": 0.469140625,
+      "topRatio": 0.9386309992132179,
+      "selected": false
+    }
+  ],
+  "clockDragged": false,
+  "clockPosition": {
+    "left": "50%",
+    "top": "50%",
+    "leftRatio": null,
+    "topRatio": null,
+    "transform": "translate(-50%, -50%)"
+  }
+}

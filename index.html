@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Clock</title>
+<link rel="icon" type="image/png" href="ico.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&family=Doto:wght@100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,light_mode">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="fonts-loading">
+
+<button id="hamburgerBtn" class="hamburger" type="button" aria-label="Open settings" aria-expanded="false">☰</button>
+
+<button id="themeBtn" class="theme-btn" type="button" aria-label="Toggle dark and light mode">
+<span id="themeBtnIcon" class="material-symbols-outlined theme-btn-icon" aria-hidden="true">dark_mode</span>
+</button>
+
+<aside class="controls" id="settingsPanel" aria-hidden="true">
+<div class="panel-header">
+<h2>Settings</h2>
+<button id="closePanelBtn" type="button" aria-label="Close settings">✕</button>
+</div>
+<button id="resetAllBtn" class="top-reset-btn" type="button">Reset All</button>
+
+<div class="panel-section">
+<div class="section-title-row">
+<h3>Time</h3>
+<label class="toggle" for="timeSettingsEnabled">
+<input id="timeSettingsEnabled" type="checkbox" checked>
+<span class="toggle-slider"></span>
+</label>
+</div>
+<fieldset class="setting-grid" id="timeControls">
+
+<label for="hourMode">Hour Mode</label>
+<select id="hourMode">
+<option value="24">24-hour</option>
+<option value="12" selected>12-hour</option>
+</select>
+
+<label for="showSeconds">Show Seconds</label>
+<select id="showSeconds">
+<option value="on">On</option>
+<option value="off" selected>Off</option>
+</select>
+
+<label for="showMilliseconds">Show Milliseconds</label>
+<select id="showMilliseconds">
+<option value="on">On</option>
+<option value="off" selected>Off</option>
+</select>
+
+<label for="showMeridiem">Show AM/PM</label>
+<select id="showMeridiem">
+<option value="on">On</option>
+<option value="off" selected>Off</option>
+</select>
+
+<label for="blinkColon">Blink ":"</label>
+<select id="blinkColon">
+<option value="off" selected>Off</option>
+<option value="on">On</option>
+</select>
+
+<label for="timeDraggable">Move Time Block</label>
+<select id="timeDraggable">
+<option value="off" selected>Off</option>
+<option value="on">On</option>
+</select>
+
+<label for="resetTimePosBtn">Time Position</label>
+<button id="resetTimePosBtn" type="button">Reset Center</button>
+</fieldset>
+</div>
+
+<div class="panel-section" id="fontSection">
+<div class="section-title-row">
+<h3>Font</h3>
+<label class="toggle" for="fontSettingsEnabled">
+<input id="fontSettingsEnabled" type="checkbox" checked>
+<span class="toggle-slider"></span>
+</label>
+</div>
+<fieldset class="setting-grid" id="fontControls">
+
+<label for="fontFamily">Font</label>
+<select id="fontFamily">
+<option value="'Google Sans Flex', sans-serif" selected>Google Sans Flex</option>
+<option value="'Baskervville', serif">Baskervville</option>
+<option value="'Instrument Serif', serif">Instrument Serif</option>
+<option value="'Doto', sans-serif">Doto</option>
+</select>
+
+<label for="fontWeight">Weight</label>
+<select id="fontWeight">
+<option value="100">Thin</option>
+<option value="300">Light</option>
+<option value="400" selected>Regular</option>
+<option value="500">Medium</option>
+<option value="700">Bold</option>
+<option value="900">Black</option>
+</select>
+
+<label for="fontSize">Size (px)</label>
+<input id="fontSize" type="number" min="16" max="420" value="120">
+
+<label for="lineHeight">Line Height</label>
+<input id="lineHeight" type="number" min="0.8" max="2" step="0.05" value="1">
+
+<label for="letterSpacing">Tracking (px)</label>
+<input id="letterSpacing" type="number" min="-20" max="40" value="0">
+
+<label for="fontStyle">Style</label>
+<select id="fontStyle">
+<option value="normal" selected>Normal</option>
+<option value="italic">Italic</option>
+</select>
+
+<label for="textColor">Text Color</label>
+<input id="textColor" type="color" value="#ffffff">
+
+<label for="bgColor">Background</label>
+<input id="bgColor" type="color" value="#000000">
+</fieldset>
+
+<div class="panel-actions">
+<button id="pickTimeFontBtn" type="button">Load Time Font</button>
+<button id="resetFontBtn" type="button">Reset Font</button>
+</div>
+
+<span id="fontStatus" aria-live="polite"></span>
+<input id="timeFontFileInput" type="file" accept=".ttf,.otf,.woff,.woff2" hidden>
+<input id="textFontFileInput" type="file" accept=".ttf,.otf,.woff,.woff2" hidden>
+</div>
+
+<div class="panel-section" id="textSection">
+<div class="section-title-row">
+<h3>Text</h3>
+<label class="toggle" for="textSettingsEnabled">
+<input id="textSettingsEnabled" type="checkbox" checked>
+<span class="toggle-slider"></span>
+</label>
+</div>
+<fieldset class="setting-grid" id="textControls">
+<label for="textDefaultFont">Font</label>
+<select id="textDefaultFont">
+<option value="'Google Sans Flex', sans-serif" selected>Google Sans Flex</option>
+<option value="'Baskervville', serif">Baskervville</option>
+<option value="'Instrument Serif', serif">Instrument Serif</option>
+<option value="'Doto', sans-serif">Doto</option>
+</select>
+
+<label for="textWeight">Weight</label>
+<select id="textWeight">
+<option value="100">Thin</option>
+<option value="300">Light</option>
+<option value="400" selected>Regular</option>
+<option value="500">Medium</option>
+<option value="700">Bold</option>
+<option value="900">Black</option>
+</select>
+
+<label for="textSize">Size (px)</label>
+<input id="textSize" type="number" min="10" max="420" value="38">
+
+<label for="textLineHeight">Line Height</label>
+<input id="textLineHeight" type="number" min="0.8" max="2" step="0.05" value="1.1">
+
+<label for="textTracking">Tracking (px)</label>
+<input id="textTracking" type="number" min="-20" max="40" value="0">
+
+<label for="textStyle">Style</label>
+<select id="textStyle">
+<option value="normal" selected>Normal</option>
+<option value="italic">Italic</option>
+</select>
+
+<label for="textFillColor">Text Color</label>
+<input id="textFillColor" type="color" value="#ffffff">
+
+<label for="customTextInput">Text Value</label>
+<input id="customTextInput" type="text" placeholder="Type text to place">
+</fieldset>
+<div class="panel-actions">
+<button id="pickTextFontBtn" type="button">Load Text Font</button>
+<button id="addTextBtn" type="button">Add Text</button>
+<button id="undoBtn" type="button">Undo</button>
+</div>
+<div id="textHistory" class="text-history"></div>
+</div>
+<div class="panel-section" id="configSection">
+<div class="section-title-row">
+<h3>Config</h3>
+</div>
+<div class="panel-actions">
+<button id="saveConfigBtn" type="button">Save Config</button>
+<button id="loadConfigBtn" type="button">Load Config</button>
+</div>
+<span id="configStatus" class="config-status" aria-live="polite"></span>
+<input id="loadConfigFileInput" type="file" accept=".json,application/json" hidden>
+</div>
+<div class="panel-footer" aria-label="App credits">
+<img class="panel-footer-logo" src="ico.png" alt="Anode Studios logo">
+<span class="panel-footer-text">©Planet Volumes 2026</span>
+</div>
+</aside>
+
+<div id="panelBackdrop" class="panel-backdrop" hidden></div>
+
+<div id="clock"><span id="timePrimary"><span id="timeHour">00</span><span id="timeMainColon">:</span><span id="timeMinute">00</span></span><span id="timeExtras"><span id="timeColon">:</span><span id="timeSeconds">00</span><span id="timeMilliDot">.</span><span id="timeMilliseconds">000</span><span id="timeMeridiem"></span></span></div>
+
+<script>
+const clockEl = document.getElementById("clock");
+const timeHourEl = document.getElementById("timeHour");
+const timeMainColonEl = document.getElementById("timeMainColon");
+const timeMinuteEl = document.getElementById("timeMinute");
+const timeColonEl = document.getElementById("timeColon");
+const timeSecondsEl = document.getElementById("timeSeconds");
+const timeMilliDotEl = document.getElementById("timeMilliDot");
+const timeMillisecondsEl = document.getElementById("timeMilliseconds");
+const timeMeridiemEl = document.getElementById("timeMeridiem");
+const controlsEl = document.querySelector(".controls");
+const hamburgerBtnEl = document.getElementById("hamburgerBtn");
+const themeBtnEl = document.getElementById("themeBtn");
+const themeBtnIconEl = document.getElementById("themeBtnIcon");
+const closePanelBtnEl = document.getElementById("closePanelBtn");
+const panelBackdropEl = document.getElementById("panelBackdrop");
+const timeFontFileInputEl = document.getElementById("timeFontFileInput");
+const textFontFileInputEl = document.getElementById("textFontFileInput");
+const pickTimeFontBtnEl = document.getElementById("pickTimeFontBtn");
+const pickTextFontBtnEl = document.getElementById("pickTextFontBtn");
+const resetBtnEl = document.getElementById("resetFontBtn");
+const resetAllBtnEl = document.getElementById("resetAllBtn");
+const statusEl = document.getElementById("fontStatus");
+const fontSettingsEnabledEl = document.getElementById("fontSettingsEnabled");
+const timeSettingsEnabledEl = document.getElementById("timeSettingsEnabled");
+const timeControlsEl = document.getElementById("timeControls");
+const fontControlsEl = document.getElementById("fontControls");
+const fontSectionEl = document.getElementById("fontSection");
+const textSectionEl = document.getElementById("textSection");
+const textControlsEl = document.getElementById("textControls");
+const hourModeEl = document.getElementById("hourMode");
+const showSecondsEl = document.getElementById("showSeconds");
+const showMillisecondsEl = document.getElementById("showMilliseconds");
+const showMeridiemEl = document.getElementById("showMeridiem");
+const showMeridiemLabelEl = document.querySelector('label[for="showMeridiem"]');
+const blinkColonEl = document.getElementById("blinkColon");
+const blinkColonLabelEl = document.querySelector('label[for="blinkColon"]');
+const timeDraggableEl = document.getElementById("timeDraggable");
+const resetTimePosBtnEl = document.getElementById("resetTimePosBtn");
+const fontFamilyEl = document.getElementById("fontFamily");
+const textDefaultFontEl = document.getElementById("textDefaultFont");
+const fontWeightEl = document.getElementById("fontWeight");
+const fontSizeEl = document.getElementById("fontSize");
+const lineHeightEl = document.getElementById("lineHeight");
+const letterSpacingEl = document.getElementById("letterSpacing");
+const fontStyleEl = document.getElementById("fontStyle");
+const textColorEl = document.getElementById("textColor");
+const bgColorEl = document.getElementById("bgColor");
+const textSettingsEnabledEl = document.getElementById("textSettingsEnabled");
+const customTextInputEl = document.getElementById("customTextInput");
+const textSizeEl = document.getElementById("textSize");
+const textTrackingEl = document.getElementById("textTracking");
+const textLineHeightEl = document.getElementById("textLineHeight");
+const textWeightEl = document.getElementById("textWeight");
+const textStyleEl = document.getElementById("textStyle");
+const textFillColorEl = document.getElementById("textFillColor");
+const addTextBtnEl = document.getElementById("addTextBtn");
+const undoBtnEl = document.getElementById("undoBtn");
+const textHistoryEl = document.getElementById("textHistory");
+const saveConfigBtnEl = document.getElementById("saveConfigBtn");
+const loadConfigBtnEl = document.getElementById("loadConfigBtn");
+const configStatusEl = document.getElementById("configStatus");
+const loadConfigFileInputEl = document.getElementById("loadConfigFileInput");
+
+let activeTimeFontName = null;
+let activeTextFontName = null;
+let activeTimeFontUrl = null;
+let activeTextFontUrl = null;
+let hideHamburgerTimer = null;
+let nextTextId = 1;
+const textHistory = [];
+const undoStack = [];
+const MAX_UNDO = 80;
+let isRestoringUndo = false;
+let clockDragged = false;
+let lastViewportWidth = window.innerWidth;
+let lastViewportHeight = window.innerHeight;
+let settingsReady = false;
+let configStatusTimer = null;
+const BROWSER_SETTINGS_STORAGE_KEY = "time-screen-settings-v1";
+const VALID_HOUR_MODES = new Set(["12", "24"]);
+const VALID_TOGGLE_VALUES = new Set(["on", "off"]);
+const VALID_THEMES = new Set(["dark", "light"]);
+const FONT_WEIGHT_OPTIONS = {
+ "'Google Sans Flex', sans-serif": [
+  { value: "100", label: "Thin" },
+  { value: "300", label: "Light" },
+  { value: "400", label: "Regular" },
+  { value: "500", label: "Medium" },
+  { value: "700", label: "Bold" },
+  { value: "900", label: "Black" }
+ ],
+ "'Baskervville', serif": [
+  { value: "400", label: "Regular" },
+  { value: "500", label: "Medium" },
+  { value: "700", label: "Bold" }
+ ],
+ "'Instrument Serif', serif": [
+  { value: "400", label: "Regular" },
+  { value: "700", label: "Bold" }
+ ],
+ "'Doto', sans-serif": [
+  { value: "100", label: "Thin" },
+  { value: "300", label: "Light" },
+  { value: "400", label: "Regular" },
+  { value: "500", label: "Medium" },
+  { value: "700", label: "Bold" },
+  { value: "900", label: "Black" }
+ ]
+};
+
+function normalizeHourMode(value) {
+ return VALID_HOUR_MODES.has(value) ? value : "12";
+}
+
+function normalizeToggleValue(value, fallback = "off") {
+ return VALID_TOGGLE_VALUES.has(value) ? value : fallback;
+}
+
+function normalizeTheme(value) {
+ return VALID_THEMES.has(value) ? value : "dark";
+}
+
+function getCurrentTheme() {
+ return normalizeTheme(document.body.dataset.theme);
+}
+
+function applyTheme(theme) {
+ const normalizedTheme = normalizeTheme(theme);
+ const isLightTheme = normalizedTheme === "light";
+ document.body.dataset.theme = normalizedTheme;
+ themeBtnEl.setAttribute("aria-pressed", String(isLightTheme));
+ themeBtnEl.setAttribute("aria-label", isLightTheme ? "Switch to dark mode" : "Switch to light mode");
+ themeBtnIconEl.textContent = isLightTheme ? "dark_mode" : "light_mode";
+}
+
+function clampPositionRatio(value) {
+ return clamp(value, 0, 1);
+}
+
+function setElementRelativePosition(element, leftPx, topPx) {
+ const width = Math.max(window.innerWidth, 1);
+ const height = Math.max(window.innerHeight, 1);
+ element.dataset.leftRatio = String(clampPositionRatio(leftPx / width));
+ element.dataset.topRatio = String(clampPositionRatio(topPx / height));
+ element.style.left = `${leftPx}px`;
+ element.style.top = `${topPx}px`;
+}
+
+function refreshElementPositionFromRatio(element) {
+ const leftRatio = Number(element.dataset.leftRatio);
+ const topRatio = Number(element.dataset.topRatio);
+ if (!Number.isFinite(leftRatio) || !Number.isFinite(topRatio)) return;
+ element.style.left = `${Math.round(leftRatio * window.innerWidth)}px`;
+ element.style.top = `${Math.round(topRatio * window.innerHeight)}px`;
+}
+
+function captureElementPosition(element) {
+ const leftPx = Number.parseFloat(element.style.left);
+ const topPx = Number.parseFloat(element.style.top);
+ return {
+  left: element.style.left,
+  top: element.style.top,
+  leftRatio: Number.isFinite(leftPx) ? clampPositionRatio(leftPx / Math.max(window.innerWidth, 1)) : null,
+  topRatio: Number.isFinite(topPx) ? clampPositionRatio(topPx / Math.max(window.innerHeight, 1)) : null
+ };
+}
+
+function clearElementPositionRatio(element) {
+ delete element.dataset.leftRatio;
+ delete element.dataset.topRatio;
+}
+
+function parseStoredRatio(value) {
+ if (value === "" || value === null || value === undefined) return null;
+ const parsed = Number(value);
+ return Number.isFinite(parsed) ? parsed : null;
+}
+
+function parseStoredPixel(value) {
+ if (typeof value !== "string" || value.trim() === "") return null;
+ const parsed = Number.parseFloat(value);
+ return Number.isFinite(parsed) ? parsed : null;
+}
+
+function applyStoredPosition(element, leftRatio, topRatio, leftValue, topValue) {
+ const ratioLeft = parseStoredRatio(leftRatio);
+ const ratioTop = parseStoredRatio(topRatio);
+ const fallbackLeft = parseStoredPixel(leftValue);
+ const fallbackTop = parseStoredPixel(topValue);
+ const hasSuspiciousZeroRatio = ratioLeft === 0 && ratioTop === 0 && fallbackLeft === null && fallbackTop === null;
+ if (ratioLeft !== null && ratioTop !== null && !hasSuspiciousZeroRatio) {
+  element.dataset.leftRatio = String(ratioLeft);
+  element.dataset.topRatio = String(ratioTop);
+  refreshElementPositionFromRatio(element);
+  return;
+ }
+
+ const clampedLeft = clamp(
+  fallbackLeft ?? Math.max(16, (window.innerWidth / 2) - 80),
+  0,
+  Math.max(window.innerWidth - 24, 0)
+ );
+ const clampedTop = clamp(
+  fallbackTop ?? Math.max(16, (window.innerHeight / 2) - 20),
+  0,
+  Math.max(window.innerHeight - 24, 0)
+ );
+ setElementRelativePosition(element, clampedLeft, clampedTop);
+}
+
+function saveHistoryItemPosition(historyId, element) {
+ const historyItem = getHistoryItemById(historyId);
+ if (!historyItem || !element) return;
+ historyItem.left = element.style.left;
+ historyItem.top = element.style.top;
+ historyItem.leftRatio = parseStoredRatio(element.dataset.leftRatio);
+ historyItem.topRatio = parseStoredRatio(element.dataset.topRatio);
+}
+
+function syncFontWeightOptions(fontSelectEl, weightSelectEl, preferredValue = weightSelectEl.value) {
+ const options = FONT_WEIGHT_OPTIONS[fontSelectEl.value] || FONT_WEIGHT_OPTIONS["'Google Sans Flex', sans-serif"];
+ weightSelectEl.textContent = "";
+ options.forEach((option) => {
+  const optionEl = document.createElement("option");
+  optionEl.value = option.value;
+  optionEl.textContent = option.label;
+  weightSelectEl.appendChild(optionEl);
+ });
+ const allowedValues = new Set(options.map((option) => option.value));
+ weightSelectEl.value = allowedValues.has(preferredValue) ? preferredValue : "400";
+ if (!allowedValues.has(weightSelectEl.value)) {
+  weightSelectEl.value = options[0].value;
+ }
+}
+
+function clamp(value, min, max) {
+ return Math.min(max, Math.max(min, value));
+}
+
+function hexToRgb(hex) {
+ const normalized = hex.replace("#", "");
+ if (!/^[0-9a-fA-F]{6}$/.test(normalized)) return null;
+ return {
+  r: parseInt(normalized.slice(0, 2), 16),
+  g: parseInt(normalized.slice(2, 4), 16),
+  b: parseInt(normalized.slice(4, 6), 16)
+ };
+}
+
+function rgbToHex({ r, g, b }) {
+ const toHex = (value) => clamp(Math.round(value), 0, 255).toString(16).padStart(2, "0");
+ return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+function rgbToHsl({ r, g, b }) {
+ const red = r / 255;
+ const green = g / 255;
+ const blue = b / 255;
+ const max = Math.max(red, green, blue);
+ const min = Math.min(red, green, blue);
+ const lightness = (max + min) / 2;
+ let hue = 0;
+ let saturation = 0;
+
+ if (max !== min) {
+  const delta = max - min;
+  saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+  switch (max) {
+   case red:
+    hue = (green - blue) / delta + (green < blue ? 6 : 0);
+    break;
+   case green:
+    hue = (blue - red) / delta + 2;
+    break;
+   default:
+    hue = (red - green) / delta + 4;
+    break;
+  }
+  hue /= 6;
+ }
+
+ return { h: hue, s: saturation, l: lightness };
+}
+
+function hslToRgb({ h, s, l }) {
+ const hueToRgb = (p, q, t) => {
+  let temp = t;
+  if (temp < 0) temp += 1;
+  if (temp > 1) temp -= 1;
+  if (temp < 1 / 6) return p + (q - p) * 6 * temp;
+  if (temp < 1 / 2) return q;
+  if (temp < 2 / 3) return p + (q - p) * (2 / 3 - temp) * 6;
+  return p;
+ };
+
+ if (s === 0) {
+  const gray = l * 255;
+  return { r: gray, g: gray, b: gray };
+ }
+
+ const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+ const p = 2 * l - q;
+ return {
+  r: 255 * hueToRgb(p, q, h + 1 / 3),
+  g: 255 * hueToRgb(p, q, h),
+  b: 255 * hueToRgb(p, q, h - 1 / 3)
+ };
+}
+
+function setColorLightness(hex, targetLightness) {
+ const rgb = hexToRgb(hex);
+ if (!rgb) return hex;
+ const hsl = rgbToHsl(rgb);
+ return rgbToHex(hslToRgb({ h: hsl.h, s: hsl.s, l: clamp(targetLightness, 0, 1) }));
+}
+
+function shiftThemeColors(theme) {
+ const normalizedTheme = normalizeTheme(theme);
+ const backgroundLightness = normalizedTheme === "light" ? 0.95 : 0.06;
+ const foregroundLightness = normalizedTheme === "light" ? 0.12 : 0.94;
+ bgColorEl.value = setColorLightness(bgColorEl.value, backgroundLightness);
+ textColorEl.value = setColorLightness(textColorEl.value, foregroundLightness);
+ textFillColorEl.value = setColorLightness(textFillColorEl.value, foregroundLightness);
+}
+
+function updateTime(){
+ if (!timeSettingsEnabledEl.checked) return;
+
+ const now = new Date();
+ const currentHourMode = normalizeHourMode(hourModeEl.value);
+ hourModeEl.value = currentHourMode;
+ const use12Hour = currentHourMode === "12";
+ const hourRaw = now.getHours();
+ const hour12 = hourRaw % 12 || 12;
+ const hour = use12Hour ? String(hour12) : String(hourRaw).padStart(2, "0");
+ const minute = String(now.getMinutes()).padStart(2, "0");
+ const second = String(now.getSeconds()).padStart(2, "0");
+ const millisecond = String(now.getMilliseconds()).padStart(3, "0");
+ timeHourEl.textContent = hour;
+ timeMinuteEl.textContent = minute;
+ timeSecondsEl.textContent = second;
+ timeMillisecondsEl.textContent = millisecond;
+ timeMeridiemEl.textContent = use12Hour ? (hourRaw >= 12 ? "PM" : "AM") : "";
+ const showMeridiem = use12Hour && normalizeToggleValue(showMeridiemEl.value) === "on";
+ timeMeridiemEl.style.display = showMeridiem ? "inline-block" : "none";
+ const shouldBlinkMainColon = blinkColonEl.value === "on";
+ const mainColonVisible = !shouldBlinkMainColon || Number(second) % 2 === 0;
+ timeMainColonEl.style.opacity = mainColonVisible ? "1" : "0";
+ const showSeconds = showSecondsEl.value === "on";
+ const showMilliseconds = showMillisecondsEl.value === "on";
+  timeSecondsEl.style.display = showSeconds ? "inline-block" : "none";
+  timeColonEl.style.display = showSeconds ? "inline-block" : "none";
+ timeMilliDotEl.style.display = showSeconds && showMilliseconds ? "inline-block" : "none";
+ timeMillisecondsEl.style.display = showSeconds && showMilliseconds ? "inline-block" : "none";
+}
+
+setInterval(updateTime, 50);
+
+function getFloatingBlocksState() {
+ return Array.from(document.querySelectorAll(".floating-text")).map((el) => ({
+  historyId: Number(el.dataset.historyId),
+  left: el.style.left,
+  top: el.style.top,
+  leftRatio: parseStoredRatio(el.dataset.leftRatio),
+  topRatio: parseStoredRatio(el.dataset.topRatio),
+  selected: el.classList.contains("selected")
+ }));
+}
+
+function buildSettingsState() {
+ return {
+  timeSettingsEnabled: timeSettingsEnabledEl.checked,
+  hourMode: hourModeEl.value,
+  showSeconds: showSecondsEl.value,
+  showMilliseconds: showMillisecondsEl.value,
+  showMeridiem: showMeridiemEl.value,
+  blinkColon: blinkColonEl.value,
+  timeDraggable: timeDraggableEl.value,
+  fontSettingsEnabled: fontSettingsEnabledEl.checked,
+  fontFamily: fontFamilyEl.value,
+  fontWeight: fontWeightEl.value,
+  fontSize: fontSizeEl.value,
+  lineHeight: lineHeightEl.value,
+  letterSpacing: letterSpacingEl.value,
+  fontStyle: fontStyleEl.value,
+  textColor: textColorEl.value,
+  bgColor: bgColorEl.value,
+  textSettingsEnabled: textSettingsEnabledEl.checked,
+  textDefaultFont: textDefaultFontEl.value,
+  customTextInput: customTextInputEl.value,
+  textSize: textSizeEl.value,
+  textTracking: textTrackingEl.value,
+  textLineHeight: textLineHeightEl.value,
+  textWeight: textWeightEl.value,
+  textStyle: textStyleEl.value,
+  textFillColor: textFillColorEl.value,
+  theme: getCurrentTheme(),
+  nextTextId,
+  textHistory: textHistory.map((item) => ({ ...item })),
+  floatingBlocks: getFloatingBlocksState(),
+  clockDragged,
+  clockPosition: clockDragged
+   ? {
+     ...captureElementPosition(clockEl),
+     transform: clockEl.style.transform
+    }
+   : {
+     left: "50%",
+     top: "50%",
+     leftRatio: null,
+     topRatio: null,
+     transform: "translate(-50%, -50%)"
+    }
+ };
+}
+
+async function persistSettings() {
+ const state = buildSettingsState();
+ if (window.configApi?.saveConfig) {
+  await window.configApi.saveConfig(state);
+  return;
+ }
+ localStorage.setItem(BROWSER_SETTINGS_STORAGE_KEY, JSON.stringify(state));
+}
+
+function downloadConfigFile(state) {
+ const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+ const url = URL.createObjectURL(blob);
+ const linkEl = document.createElement("a");
+ linkEl.href = url;
+ linkEl.download = "config.json";
+ document.body.appendChild(linkEl);
+ linkEl.click();
+ linkEl.remove();
+ setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function readConfigFile(file) {
+ return new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = () => {
+   try {
+    resolve(JSON.parse(String(reader.result || "")));
+   } catch (error) {
+    reject(error);
+   }
+  };
+  reader.onerror = () => reject(reader.error || new Error("Could not read config file"));
+  reader.readAsText(file);
+ });
+}
+
+async function loadBrowserConfigFile() {
+ try {
+  const response = await fetch("config.json", { cache: "no-store" });
+  if (!response.ok) return null;
+  return await response.json();
+ } catch {
+  return null;
+ }
+}
+
+function saveSettings() {
+ if (!settingsReady) return;
+ persistSettings().catch((error) => {
+  console.warn("Could not save settings", error);
+ });
+}
+
+function showConfigStatus(message, isError = false) {
+ if (!configStatusEl) return;
+ configStatusEl.textContent = message;
+ configStatusEl.dataset.error = isError ? "true" : "false";
+ if (configStatusTimer) {
+  clearTimeout(configStatusTimer);
+ }
+ configStatusTimer = setTimeout(() => {
+  configStatusEl.textContent = "";
+  configStatusEl.dataset.error = "false";
+ }, 2400);
+}
+
+function restoreFloatingBlocks(blocks = []) {
+ document.querySelectorAll(".floating-text").forEach((el) => el.remove());
+ const restoredIds = new Set();
+ let restoredCount = 0;
+ blocks.forEach((block) => {
+  const historyItem = getHistoryItemById(block.historyId);
+  if (!historyItem) return;
+  restoredIds.add(block.historyId);
+  const textEl = document.createElement("div");
+  textEl.className = "floating-text";
+  textEl.dataset.historyId = String(historyItem.id);
+  const contentEl = document.createElement("span");
+  contentEl.className = "floating-text-content";
+  contentEl.textContent = historyItem.content;
+  contentEl.style.fontSize = `${historyItem.fontSize || 38}px`;
+  const handleEl = document.createElement("div");
+  handleEl.className = "floating-resize-handle";
+  textEl.appendChild(contentEl);
+  textEl.appendChild(handleEl);
+  applyStoredPosition(textEl, block.leftRatio, block.topRatio, block.left, block.top);
+  document.body.appendChild(textEl);
+  makeTextDraggable(textEl);
+  makeTextResizable(textEl, contentEl, historyItem.id);
+  makeTextEditable(textEl, contentEl, historyItem.id);
+  saveHistoryItemPosition(historyItem.id, textEl);
+  restoredCount += 1;
+ });
+ textHistory.forEach((historyItem) => {
+  if (restoredIds.has(historyItem.id)) return;
+  if (historyItem.leftRatio === null && historyItem.topRatio === null && !historyItem.left && !historyItem.top) return;
+  placeHistoryText(historyItem.id, false);
+  restoredCount += 1;
+ });
+ return restoredCount;
+}
+
+function applyLoadedState(state) {
+  if (!state || typeof state !== "object") return;
+  timeSettingsEnabledEl.checked = state.timeSettingsEnabled ?? timeSettingsEnabledEl.checked;
+  hourModeEl.value = normalizeHourMode(state.hourMode);
+  showSecondsEl.value = normalizeToggleValue(state.showSeconds, "off");
+  showMillisecondsEl.value = normalizeToggleValue(state.showMilliseconds, "off");
+  showMeridiemEl.value = normalizeToggleValue(state.showMeridiem, "off");
+  blinkColonEl.value = normalizeToggleValue(state.blinkColon, "off");
+  timeDraggableEl.value = normalizeToggleValue(state.timeDraggable, "off");
+  fontSettingsEnabledEl.checked = state.fontSettingsEnabled ?? fontSettingsEnabledEl.checked;
+  fontFamilyEl.value = state.fontFamily ?? fontFamilyEl.value;
+  fontSizeEl.value = state.fontSize ?? fontSizeEl.value;
+  lineHeightEl.value = state.lineHeight ?? lineHeightEl.value;
+  letterSpacingEl.value = state.letterSpacing ?? letterSpacingEl.value;
+  fontStyleEl.value = state.fontStyle ?? fontStyleEl.value;
+  textColorEl.value = state.textColor ?? textColorEl.value;
+  bgColorEl.value = state.bgColor ?? bgColorEl.value;
+  textSettingsEnabledEl.checked = state.textSettingsEnabled ?? textSettingsEnabledEl.checked;
+  textDefaultFontEl.value = state.textDefaultFont ?? textDefaultFontEl.value;
+  customTextInputEl.value = state.customTextInput ?? customTextInputEl.value;
+  textSizeEl.value = state.textSize ?? textSizeEl.value;
+  textTrackingEl.value = state.textTracking ?? textTrackingEl.value;
+  textLineHeightEl.value = state.textLineHeight ?? textLineHeightEl.value;
+  textStyleEl.value = state.textStyle ?? textStyleEl.value;
+  textFillColorEl.value = state.textFillColor ?? textFillColorEl.value;
+  syncFontWeightOptions(fontFamilyEl, fontWeightEl, state.fontWeight ?? fontWeightEl.value);
+  syncFontWeightOptions(textDefaultFontEl, textWeightEl, state.textWeight ?? textWeightEl.value);
+  enhanceSettingsSelects();
+  applyTheme(normalizeTheme(state.theme));
+
+  textHistory.length = 0;
+  (state.textHistory || []).forEach((item) => {
+   textHistory.push({ ...item });
+  });
+  nextTextId = Number(state.nextTextId) || 1;
+  clockDragged = Boolean(state.clockDragged);
+
+  if (state.clockPosition && clockDragged) {
+   clockEl.dataset.leftRatio = parseStoredRatio(state.clockPosition.leftRatio) !== null ? String(state.clockPosition.leftRatio) : "";
+   clockEl.dataset.topRatio = parseStoredRatio(state.clockPosition.topRatio) !== null ? String(state.clockPosition.topRatio) : "";
+   if (parseStoredRatio(state.clockPosition.leftRatio) !== null && parseStoredRatio(state.clockPosition.topRatio) !== null) {
+    refreshElementPositionFromRatio(clockEl);
+   } else {
+    clockEl.style.left = state.clockPosition.left || "50%";
+    clockEl.style.top = state.clockPosition.top || "50%";
+   }
+   clockEl.style.transform = state.clockPosition.transform || "translate(-50%, -50%)";
+  } else {
+   resetClockPosition();
+  }
+
+  restoreFloatingBlocks(state.floatingBlocks || []);
+}
+
+async function loadSavedSettings() {
+ try {
+  let state = null;
+  if (window.configApi?.loadConfig) {
+   state = await window.configApi.loadConfig();
+  } else {
+   state = await loadBrowserConfigFile();
+   if (!state) {
+    const rawState = localStorage.getItem(BROWSER_SETTINGS_STORAGE_KEY);
+    state = rawState ? JSON.parse(rawState) : null;
+   }
+  }
+  applyLoadedState(state);
+  } catch (error) {
+   console.warn("Could not load saved settings", error);
+  }
+}
+
+
+function applyTextSettings() {
+ const useFontSettings = fontSettingsEnabledEl.checked;
+
+ if (useFontSettings) {
+  const selectedFamily = activeTimeFontName
+   ? `"${activeTimeFontName}", ${fontFamilyEl.value}`
+   : fontFamilyEl.value;
+  const timeFontSize = Math.max(1, Number(fontSizeEl.value) || 120);
+  const timeTracking = `${letterSpacingEl.value}px`;
+  clockEl.style.fontFamily = selectedFamily;
+  clockEl.style.fontWeight = fontWeightEl.value;
+  clockEl.style.fontSize = `${timeFontSize}px`;
+  clockEl.style.lineHeight = lineHeightEl.value;
+  clockEl.style.letterSpacing = timeTracking;
+
+  clockEl.style.fontStyle = fontStyleEl.value;
+  clockEl.style.color = textColorEl.value;
+ } else {
+  clockEl.style.fontFamily = "'Google Sans Flex', sans-serif";
+  clockEl.style.fontWeight = "400";
+  clockEl.style.fontSize = "120px";
+  clockEl.style.lineHeight = "1";
+  clockEl.style.letterSpacing = "0px";
+
+  clockEl.style.fontStyle = "normal";
+  clockEl.style.color = getCurrentTheme() === "light" ? "#111111" : "#ffffff";
+  document.body.style.backgroundColor = getCurrentTheme() === "light" ? "#f5f5f7" : "#000000";
+ }
+
+ if (useFontSettings) {
+  document.body.style.backgroundColor = bgColorEl.value;
+ }
+ textHistory.forEach((item) => applyHistoryStyle(item.id));
+}
+
+function syncSectionStates() {
+ timeControlsEl.disabled = !timeSettingsEnabledEl.checked;
+ fontControlsEl.disabled = !fontSettingsEnabledEl.checked;
+ textControlsEl.disabled = !textSettingsEnabledEl.checked;
+ pickTimeFontBtnEl.disabled = !fontSettingsEnabledEl.checked;
+ pickTextFontBtnEl.disabled = !fontSettingsEnabledEl.checked;
+ resetBtnEl.disabled = !fontSettingsEnabledEl.checked;
+ addTextBtnEl.disabled = !textSettingsEnabledEl.checked;
+ fontSectionEl.classList.toggle("disabled", !fontSettingsEnabledEl.checked);
+ timeControlsEl.closest(".panel-section").classList.toggle("disabled", !timeSettingsEnabledEl.checked);
+ textSectionEl.classList.toggle("disabled", !textSettingsEnabledEl.checked);
+ document.querySelectorAll(".floating-text").forEach((el) => {
+  el.style.display = textSettingsEnabledEl.checked ? "block" : "none";
+ });
+ clockEl.style.display = timeSettingsEnabledEl.checked ? "block" : "none";
+ clockEl.classList.toggle("draggable", timeSettingsEnabledEl.checked && timeDraggableEl.value === "on");
+ if (!timeSettingsEnabledEl.checked || timeDraggableEl.value === "off") {
+  clockEl.style.cursor = "default";
+ }
+ if (!timeSettingsEnabledEl.checked) {
+  clockEl.style.pointerEvents = "none";
+ } else {
+  clockEl.style.pointerEvents = "auto";
+ }
+ syncTimeOptionVisibility();
+}
+
+function syncTimeOptionVisibility() {
+ const showMeridiemOption = timeSettingsEnabledEl.checked && hourModeEl.value === "12";
+ showMeridiemLabelEl.style.display = showMeridiemOption ? "" : "none";
+ setSelectVisibility(showMeridiemEl, showMeridiemOption);
+ if (!showMeridiemOption) {
+  showMeridiemEl.value = "off";
+ }
+ if (showMillisecondsEl.value === "on" && showSecondsEl.value !== "on") {
+  showSecondsEl.value = "on";
+ }
+ const showBlinkOption = timeSettingsEnabledEl.checked && showSecondsEl.value === "off";
+ blinkColonLabelEl.style.display = showBlinkOption ? "" : "none";
+ setSelectVisibility(blinkColonEl, showBlinkOption);
+ if (!showBlinkOption && blinkColonEl.value === "on") {
+  blinkColonEl.value = "off";
+ }
+}
+
+function openSettingsPanel() {
+ controlsEl.classList.add("open");
+ controlsEl.setAttribute("aria-hidden", "false");
+ document.body.classList.add("panel-open");
+ hamburgerBtnEl.setAttribute("aria-expanded", "true");
+ hamburgerBtnEl.classList.remove("visible");
+ themeBtnEl.classList.add("visible");
+ panelBackdropEl.hidden = false;
+}
+
+function closeSettingsPanel() {
+ controlsEl.classList.remove("open");
+ controlsEl.setAttribute("aria-hidden", "true");
+ document.body.classList.remove("panel-open");
+ hamburgerBtnEl.setAttribute("aria-expanded", "false");
+ panelBackdropEl.hidden = true;
+ scheduleHamburgerHide();
+}
+
+function scheduleHamburgerHide() {
+ clearTimeout(hideHamburgerTimer);
+ if (controlsEl.classList.contains("open")) {
+  hamburgerBtnEl.classList.remove("visible");
+  themeBtnEl.classList.add("visible");
+  return;
+ }
+ hideHamburgerTimer = setTimeout(() => {
+  hamburgerBtnEl.classList.remove("visible");
+  themeBtnEl.classList.remove("visible");
+ }, 1400);
+}
+
+function revealHamburger() {
+ if (controlsEl.classList.contains("open")) return;
+ hamburgerBtnEl.classList.add("visible");
+ themeBtnEl.classList.add("visible");
+ scheduleHamburgerHide();
+}
+
+function cleanupFontUrl(kind) {
+ if (kind === "time" && activeTimeFontUrl) {
+  URL.revokeObjectURL(activeTimeFontUrl);
+  activeTimeFontUrl = null;
+ }
+ if (kind === "text" && activeTextFontUrl) {
+  URL.revokeObjectURL(activeTextFontUrl);
+  activeTextFontUrl = null;
+ }
+}
+
+async function loadSelectedFont(file, kind) {
+ try {
+  cleanupFontUrl(kind);
+  const objectUrl = URL.createObjectURL(file);
+  const fontName = `${kind}-custom-font-${Date.now()}`;
+  const fontFace = new FontFace(fontName, `url(${objectUrl})`);
+  const loadedFont = await fontFace.load();
+  document.fonts.add(loadedFont);
+  if (kind === "time") {
+   activeTimeFontName = fontName;
+   activeTimeFontUrl = objectUrl;
+  } else {
+   activeTextFontName = fontName;
+   activeTextFontUrl = objectUrl;
+  }
+  applyTextSettings();
+  renderTextHistory();
+  statusEl.textContent = `${kind === "time" ? "Time" : "Text"} font loaded: ${file.name}`;
+  saveSettings();
+ } catch (error) {
+  statusEl.textContent = "Could not load font file";
+ }
+}
+
+pickTimeFontBtnEl.addEventListener("click", () => {
+ timeFontFileInputEl.click();
+});
+
+pickTextFontBtnEl.addEventListener("click", () => {
+ textFontFileInputEl.click();
+});
+
+timeFontFileInputEl.addEventListener("change", async (event) => {
+ const file = event.target.files?.[0];
+ if (!file) return;
+ await loadSelectedFont(file, "time");
+ timeFontFileInputEl.value = "";
+});
+
+textFontFileInputEl.addEventListener("change", async (event) => {
+ const file = event.target.files?.[0];
+ if (!file) return;
+ await loadSelectedFont(file, "text");
+ textFontFileInputEl.value = "";
+});
+
+resetBtnEl.addEventListener("click", () => {
+ cleanupFontUrl("time");
+ cleanupFontUrl("text");
+ activeTimeFontName = null;
+ activeTextFontName = null;
+ applyTextSettings();
+ renderTextHistory();
+ statusEl.textContent = "Default font restored";
+ saveSettings();
+});
+
+resetAllBtnEl.addEventListener("click", () => {
+ cleanupFontUrl("time");
+ cleanupFontUrl("text");
+ activeTimeFontName = null;
+ activeTextFontName = null;
+ timeSettingsEnabledEl.checked = true;
+ hourModeEl.value = "12";
+ showSecondsEl.value = "off";
+ showMillisecondsEl.value = "off";
+ showMeridiemEl.value = "off";
+ blinkColonEl.value = "off";
+ timeDraggableEl.value = "off";
+ fontSettingsEnabledEl.checked = true;
+ textSettingsEnabledEl.checked = true;
+ fontFamilyEl.value = "'Google Sans Flex', sans-serif";
+ textDefaultFontEl.value = "'Google Sans Flex', sans-serif";
+ textSizeEl.value = "38";
+ textTrackingEl.value = "0";
+ textLineHeightEl.value = "1.1";
+ textWeightEl.value = "400";
+ textStyleEl.value = "normal";
+ textFillColorEl.value = "#ffffff";
+ fontWeightEl.value = "400";
+ fontSizeEl.value = "120";
+ lineHeightEl.value = "1";
+ letterSpacingEl.value = "0";
+ fontStyleEl.value = "normal";
+ textColorEl.value = "#ffffff";
+ bgColorEl.value = "#000000";
+ statusEl.textContent = "All settings reset";
+ syncFontWeightOptions(fontFamilyEl, fontWeightEl, "400");
+ syncFontWeightOptions(textDefaultFontEl, textWeightEl, "400");
+ enhanceSettingsSelects();
+ applyTheme("dark");
+ syncSectionStates();
+ applyTextSettings();
+ updateTime();
+ resetClockPosition();
+ saveSettings();
+});
+
+saveConfigBtnEl.addEventListener("click", async () => {
+ try {
+  const state = buildSettingsState();
+  if (window.configApi?.saveConfig) {
+   await persistSettings();
+   showConfigStatus("Saved to config.json");
+  } else {
+   localStorage.setItem(BROWSER_SETTINGS_STORAGE_KEY, JSON.stringify(state));
+   downloadConfigFile(state);
+   showConfigStatus("Saved in browser and downloaded config.json");
+  }
+ } catch (error) {
+  console.warn("Could not save config", error);
+  showConfigStatus("Could not save config", true);
+ }
+});
+
+loadConfigBtnEl.addEventListener("click", async () => {
+ try {
+  if (!window.configApi?.pickLoadConfig) {
+   loadConfigFileInputEl.click();
+   return;
+  }
+  const result = await window.configApi.pickLoadConfig();
+  if (!result || result.canceled) return;
+  settingsReady = false;
+  applyLoadedState(result.config);
+  enhanceSettingsSelects();
+  applyTextSettings();
+  updateTime();
+  syncSectionStates();
+  renderTextHistory();
+  updateUndoButton();
+  settingsReady = true;
+  await persistSettings();
+  showConfigStatus(`Loaded ${result.filePath.split(/[/\\\\]/).pop()}`);
+ } catch (error) {
+  console.warn("Could not load config", error);
+  showConfigStatus("Could not load config", true);
+ } finally {
+  settingsReady = true;
+ }
+});
+
+loadConfigFileInputEl.addEventListener("change", async (event) => {
+ try {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  const config = await readConfigFile(file);
+  settingsReady = false;
+  applyLoadedState(config);
+  enhanceSettingsSelects();
+  applyTextSettings();
+  updateTime();
+  syncSectionStates();
+  renderTextHistory();
+  updateUndoButton();
+  settingsReady = true;
+  await persistSettings();
+  showConfigStatus(`Loaded ${file.name}`);
+ } catch (error) {
+  console.warn("Could not load config", error);
+  showConfigStatus("Could not load config", true);
+ } finally {
+  loadConfigFileInputEl.value = "";
+  settingsReady = true;
+ }
+});
+
+function makeTextDraggable(element) {
+ let pointerOffsetX = 0;
+ let pointerOffsetY = 0;
+ const historyId = Number(element.dataset.historyId);
+
+ const onPointerMove = (event) => {
+  setElementRelativePosition(element, event.clientX - pointerOffsetX, event.clientY - pointerOffsetY);
+  saveHistoryItemPosition(historyId, element);
+ };
+
+ const onPointerUp = () => {
+  document.removeEventListener("pointermove", onPointerMove);
+  document.removeEventListener("pointerup", onPointerUp);
+  saveHistoryItemPosition(historyId, element);
+  saveSettings();
+ };
+
+ element.addEventListener("pointerdown", (event) => {
+  if (event.button !== 0) return;
+  if (event.target.closest(".floating-resize-handle")) return;
+  if (element.classList.contains("editing")) return;
+  pushUndoState();
+  setSelectedFloatingText(element);
+  pointerOffsetX = event.clientX - element.offsetLeft;
+  pointerOffsetY = event.clientY - element.offsetTop;
+  document.addEventListener("pointermove", onPointerMove);
+  document.addEventListener("pointerup", onPointerUp);
+ });
+}
+
+function makeTextResizable(wrapperEl, contentEl, historyId) {
+ const handleEl = wrapperEl.querySelector(".floating-resize-handle");
+ if (!handleEl) return;
+
+ handleEl.addEventListener("pointerdown", (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+  const startY = event.clientY;
+  const startSize = parseFloat(window.getComputedStyle(contentEl).fontSize) || 38;
+
+ const onPointerMove = (moveEvent) => {
+   if (!wrapperEl.dataset.undoCaptured) {
+    pushUndoState();
+    wrapperEl.dataset.undoCaptured = "1";
+   }
+   const delta = moveEvent.clientY - startY;
+   const nextSize = Math.max(10, Math.round(startSize + delta));
+   contentEl.style.fontSize = `${nextSize}px`;
+   const historyItem = textHistory.find((item) => item.id === historyId);
+   if (historyItem) {
+    historyItem.fontSize = nextSize;
+   }
+   renderTextHistory();
+  };
+
+ const onPointerUp = () => {
+   delete wrapperEl.dataset.undoCaptured;
+   document.removeEventListener("pointermove", onPointerMove);
+   document.removeEventListener("pointerup", onPointerUp);
+   saveSettings();
+  };
+
+  document.addEventListener("pointermove", onPointerMove);
+  document.addEventListener("pointerup", onPointerUp);
+ });
+}
+
+function resetClockPosition() {
+ clockDragged = false;
+ clearElementPositionRatio(clockEl);
+ clockEl.style.left = "50%";
+ clockEl.style.top = "50%";
+ clockEl.style.transform = "translate(-50%, -50%)";
+ saveSettings();
+}
+
+function setupClockDrag() {
+ let pointerOffsetX = 0;
+ let pointerOffsetY = 0;
+
+ const onPointerMove = (event) => {
+  clockDragged = true;
+  clockEl.style.transform = "none";
+  setElementRelativePosition(clockEl, event.clientX - pointerOffsetX, event.clientY - pointerOffsetY);
+ };
+
+ const onPointerUp = () => {
+  document.removeEventListener("pointermove", onPointerMove);
+  document.removeEventListener("pointerup", onPointerUp);
+  saveSettings();
+ };
+
+ clockEl.addEventListener("pointerdown", (event) => {
+  if (event.button !== 0) return;
+  if (!(timeSettingsEnabledEl.checked && timeDraggableEl.value === "on")) return;
+  const rect = clockEl.getBoundingClientRect();
+  if (!clockDragged) {
+   clockEl.style.transform = "none";
+   setElementRelativePosition(clockEl, rect.left, rect.top);
+   clockDragged = true;
+  }
+  pointerOffsetX = event.clientX - clockEl.offsetLeft;
+  pointerOffsetY = event.clientY - clockEl.offsetTop;
+  document.addEventListener("pointermove", onPointerMove);
+  document.addEventListener("pointerup", onPointerUp);
+ });
+}
+
+function addFloatingText() {
+ if (!textSettingsEnabledEl.checked) return;
+ const content = customTextInputEl.value.trim();
+ if (!content) return;
+ pushUndoState();
+ const defaultFontSize = Math.max(10, Number(textSizeEl.value) || 38);
+ const historyItem = {
+  id: nextTextId++,
+  content,
+  fontSize: defaultFontSize,
+  fontFamily: "__text_default__",
+  left: null,
+  top: null,
+  leftRatio: null,
+  topRatio: null
+ };
+ textHistory.unshift(historyItem);
+ renderTextHistory();
+ placeHistoryText(historyItem.id, false);
+ customTextInputEl.value = "";
+ saveSettings();
+}
+
+function placeTextBelowClock(textEl) {
+ const clockRect = clockEl.getBoundingClientRect();
+ const gap = 24;
+ const targetLeft = (window.innerWidth / 2) - (textEl.offsetWidth / 2);
+ const targetTop = clockRect.bottom + gap;
+ setElementRelativePosition(
+  textEl,
+  clamp(targetLeft, 16, Math.max(window.innerWidth - textEl.offsetWidth - 16, 16)),
+  clamp(targetTop, 16, Math.max(window.innerHeight - textEl.offsetHeight - 16, 16))
+ );
+}
+
+function placeHistoryText(historyId, shouldSnapshot = true) {
+ const historyItem = textHistory.find((item) => item.id === historyId);
+ if (!historyItem) return;
+ if (shouldSnapshot) {
+  pushUndoState();
+ }
+ const textEl = document.createElement("div");
+ textEl.className = "floating-text";
+ textEl.dataset.historyId = String(historyItem.id);
+ const contentEl = document.createElement("span");
+ contentEl.className = "floating-text-content";
+ contentEl.textContent = historyItem.content;
+ contentEl.style.fontSize = `${historyItem.fontSize || 38}px`;
+ const handleEl = document.createElement("div");
+ handleEl.className = "floating-resize-handle";
+ textEl.appendChild(contentEl);
+ textEl.appendChild(handleEl);
+ document.body.appendChild(textEl);
+ applyTextSettings();
+ applyHistoryStyle(historyItem.id);
+ if (historyItem.leftRatio !== null && historyItem.topRatio !== null) {
+  applyStoredPosition(textEl, historyItem.leftRatio, historyItem.topRatio, historyItem.left, historyItem.top);
+ } else {
+  placeTextBelowClock(textEl);
+ }
+ makeTextDraggable(textEl);
+ makeTextResizable(textEl, contentEl, historyItem.id);
+ makeTextEditable(textEl, contentEl, historyItem.id);
+ saveHistoryItemPosition(historyItem.id, textEl);
+ setSelectedFloatingText(textEl);
+ saveSettings();
+}
+
+function deleteHistoryText(historyId) {
+ pushUndoState();
+ const idx = textHistory.findIndex((item) => item.id === historyId);
+ if (idx === -1) return;
+ textHistory.splice(idx, 1);
+ document.querySelectorAll(`.floating-text[data-history-id="${historyId}"]`).forEach((el) => {
+  el.remove();
+ });
+ renderTextHistory();
+ saveSettings();
+}
+
+function renderTextHistory() {
+ textHistoryEl.textContent = "";
+ if (textHistory.length === 0) {
+  const emptyEl = document.createElement("p");
+  emptyEl.className = "history-empty";
+  emptyEl.textContent = "No text history yet.";
+  textHistoryEl.appendChild(emptyEl);
+  return;
+ }
+
+ textHistory.forEach((item) => {
+  const itemEl = document.createElement("div");
+  itemEl.className = "text-history-item";
+
+  const contentEl = document.createElement("span");
+  contentEl.className = "history-content";
+  contentEl.textContent = item.content;
+
+  const actionsEl = document.createElement("div");
+  actionsEl.className = "history-actions";
+
+  const placeBtn = document.createElement("button");
+  placeBtn.type = "button";
+  placeBtn.dataset.action = "place";
+  placeBtn.dataset.id = String(item.id);
+  placeBtn.textContent = "Add";
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "button";
+  deleteBtn.dataset.action = "delete";
+  deleteBtn.dataset.id = String(item.id);
+  deleteBtn.textContent = "Delete";
+
+  actionsEl.appendChild(placeBtn);
+  actionsEl.appendChild(deleteBtn);
+  itemEl.appendChild(contentEl);
+  itemEl.appendChild(actionsEl);
+  textHistoryEl.appendChild(itemEl);
+ });
+}
+
+function buildHistoryFontOptions(selectEl, selectedValue) {
+ const options = [
+  { label: "Text Default", value: "__text_default__" },
+  { label: "Google Sans Flex", value: "'Google Sans Flex', sans-serif" },
+  { label: "Baskervville", value: "'Baskervville', serif" },
+  { label: "Instrument Serif", value: "'Instrument Serif', serif" },
+  { label: "Doto", value: "'Doto', sans-serif" }
+ ];
+ if (activeTextFontName) {
+  options.unshift({ label: "Text Custom", value: `"${activeTextFontName}", 'Google Sans Flex', sans-serif` });
+ }
+ if (activeTimeFontName) {
+  options.unshift({ label: "Time Custom", value: `"${activeTimeFontName}", 'Google Sans Flex', sans-serif` });
+ }
+ selectEl.textContent = "";
+ options.forEach((option) => {
+  const optionEl = document.createElement("option");
+  optionEl.textContent = option.label;
+  optionEl.value = option.value;
+  if (option.value === selectedValue) {
+   optionEl.selected = true;
+  }
+  selectEl.appendChild(optionEl);
+ });
+}
+
+function updateNumberInputValue(inputEl, direction, commit = true) {
+ const step = Number(inputEl.step) > 0 ? Number(inputEl.step) : 1;
+ const min = inputEl.min !== "" ? Number(inputEl.min) : -Infinity;
+ const max = inputEl.max !== "" ? Number(inputEl.max) : Infinity;
+ const precision = String(step).includes(".") ? String(step).split(".")[1].length : 0;
+ const currentValue = inputEl.value === "" ? (Number.isFinite(min) ? min : 0) : Number(inputEl.value);
+ const nextValue = clamp(currentValue + (step * direction), min, max);
+ inputEl.value = precision > 0 ? nextValue.toFixed(precision) : String(Math.round(nextValue));
+ inputEl.dispatchEvent(new Event("input", { bubbles: true }));
+ if (commit) {
+  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
+ }
+}
+
+function bindStepperButton(buttonEl, inputEl, direction) {
+ let holdTimeout = null;
+ let holdInterval = null;
+ let hasHeld = false;
+
+ const stopStepping = () => {
+  if (holdTimeout) {
+   clearTimeout(holdTimeout);
+   holdTimeout = null;
+  }
+  if (holdInterval) {
+   clearInterval(holdInterval);
+   holdInterval = null;
+  }
+  if (hasHeld) {
+    inputEl.dispatchEvent(new Event("change", { bubbles: true }));
+    hasHeld = false;
+  }
+ };
+
+ buttonEl.addEventListener("pointerdown", (event) => {
+  if (event.button !== 0) return;
+  event.preventDefault();
+  updateNumberInputValue(inputEl, direction);
+  stopStepping();
+  holdTimeout = setTimeout(() => {
+   hasHeld = true;
+   holdInterval = setInterval(() => updateNumberInputValue(inputEl, direction, false), 70);
+  }, 280);
+ });
+
+ ["pointerup", "pointerleave", "pointercancel", "lostpointercapture"].forEach((eventName) => {
+  buttonEl.addEventListener(eventName, stopStepping);
+ });
+}
+
+function enhanceNumberInput(inputEl) {
+ if (!inputEl || inputEl.dataset.stepperEnhanced === "true") return;
+ inputEl.dataset.stepperEnhanced = "true";
+ const wrapperEl = document.createElement("div");
+ wrapperEl.className = "number-stepper";
+ if (inputEl.classList.contains("history-size")) {
+  wrapperEl.classList.add("history-number-stepper");
+ }
+ const fieldEl = document.createElement("div");
+ fieldEl.className = "number-stepper-field";
+ const decrementBtnEl = document.createElement("button");
+ decrementBtnEl.type = "button";
+ decrementBtnEl.className = "number-stepper-btn";
+ decrementBtnEl.setAttribute("aria-label", `Decrease ${inputEl.id || inputEl.dataset.action || "value"}`);
+ decrementBtnEl.textContent = "−";
+ const incrementBtnEl = document.createElement("button");
+ incrementBtnEl.type = "button";
+ incrementBtnEl.className = "number-stepper-btn";
+ incrementBtnEl.setAttribute("aria-label", `Increase ${inputEl.id || inputEl.dataset.action || "value"}`);
+ incrementBtnEl.textContent = "+";
+ const parentEl = inputEl.parentNode;
+ if (!parentEl) return;
+ parentEl.insertBefore(wrapperEl, inputEl);
+ fieldEl.appendChild(inputEl);
+ wrapperEl.appendChild(fieldEl);
+ wrapperEl.appendChild(decrementBtnEl);
+ wrapperEl.appendChild(incrementBtnEl);
+ bindStepperButton(decrementBtnEl, inputEl, -1);
+ bindStepperButton(incrementBtnEl, inputEl, 1);
+}
+
+function closeCustomSelects(exceptEl = null) {
+ document.querySelectorAll(".custom-select.open").forEach((selectEl) => {
+  if (selectEl !== exceptEl) {
+   selectEl.classList.remove("open");
+  }
+ });
+}
+
+function refreshCustomSelect(selectEl) {
+ const wrapperEl = selectEl.closest(".custom-select");
+ if (!wrapperEl) return;
+ const triggerTextEl = wrapperEl.querySelector(".custom-select-trigger-text");
+  const menuEl = wrapperEl.querySelector(".custom-select-menu");
+ if (!triggerTextEl || !menuEl) return;
+  const selectedOption = selectEl.options[selectEl.selectedIndex];
+ triggerTextEl.textContent = selectedOption ? selectedOption.textContent : "Select";
+ const previewFontFamily = (
+  selectEl === fontFamilyEl || selectEl === textDefaultFontEl
+   ? selectEl.value
+   : selectEl === fontWeightEl
+    ? fontFamilyEl.value
+    : selectEl === textWeightEl
+     ? textDefaultFontEl.value
+     : ""
+ );
+ triggerTextEl.style.fontFamily = previewFontFamily || "";
+ menuEl.textContent = "";
+ Array.from(selectEl.options).forEach((option) => {
+  const optionBtnEl = document.createElement("button");
+  optionBtnEl.type = "button";
+  optionBtnEl.className = "custom-select-option";
+  optionBtnEl.textContent = option.textContent;
+  optionBtnEl.dataset.value = option.value;
+  optionBtnEl.classList.toggle("selected", option.selected);
+  if (selectEl === fontFamilyEl || selectEl === textDefaultFontEl) {
+   optionBtnEl.style.fontFamily = option.value;
+  } else if (selectEl === fontWeightEl || selectEl === textWeightEl) {
+   optionBtnEl.style.fontFamily = previewFontFamily || "";
+  }
+  optionBtnEl.addEventListener("click", () => {
+   selectEl.value = option.value;
+   refreshCustomSelect(selectEl);
+   wrapperEl.classList.remove("open");
+   selectEl.dispatchEvent(new Event("input", { bubbles: true }));
+   selectEl.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+  menuEl.appendChild(optionBtnEl);
+ });
+}
+
+function enhanceCustomSelect(selectEl) {
+ if (!selectEl || selectEl.dataset.customSelectEnhanced === "true") return;
+ selectEl.dataset.customSelectEnhanced = "true";
+ selectEl.classList.add("native-select-hidden");
+ const wrapperEl = document.createElement("div");
+ wrapperEl.className = "custom-select";
+ const triggerEl = document.createElement("button");
+ triggerEl.type = "button";
+ triggerEl.className = "custom-select-trigger";
+ triggerEl.setAttribute("aria-label", selectEl.id || "Select option");
+ const triggerTextEl = document.createElement("span");
+ triggerTextEl.className = "custom-select-trigger-text";
+ const triggerIconEl = document.createElement("span");
+ triggerIconEl.className = "custom-select-trigger-icon";
+ triggerIconEl.textContent = "⌃";
+ const menuEl = document.createElement("div");
+ menuEl.className = "custom-select-menu";
+ const parentEl = selectEl.parentNode;
+ if (!parentEl) return;
+ parentEl.insertBefore(wrapperEl, selectEl);
+ wrapperEl.appendChild(selectEl);
+ triggerEl.appendChild(triggerTextEl);
+ triggerEl.appendChild(triggerIconEl);
+ wrapperEl.appendChild(triggerEl);
+ wrapperEl.appendChild(menuEl);
+ triggerEl.addEventListener("click", () => {
+  const willOpen = !wrapperEl.classList.contains("open");
+  closeCustomSelects(wrapperEl);
+  wrapperEl.classList.toggle("open", willOpen);
+ });
+ selectEl.addEventListener("change", () => refreshCustomSelect(selectEl));
+ selectEl.addEventListener("input", () => refreshCustomSelect(selectEl));
+ refreshCustomSelect(selectEl);
+}
+
+function enhanceSettingsSelects() {
+ document.querySelectorAll("#settingsPanel .setting-grid select").forEach((selectEl) => {
+  enhanceCustomSelect(selectEl);
+  refreshCustomSelect(selectEl);
+ });
+}
+
+function setSelectVisibility(selectEl, isVisible) {
+ selectEl.style.display = isVisible ? "" : "none";
+ const wrapperEl = selectEl.closest(".custom-select");
+ if (wrapperEl) {
+  wrapperEl.style.display = isVisible ? "" : "none";
+  if (!isVisible) {
+   wrapperEl.classList.remove("open");
+  }
+ }
+}
+
+async function waitForAppFonts() {
+ if (!document.fonts?.load) return;
+ try {
+  await Promise.all([
+   document.fonts.load('400 1em "Google Sans Flex"'),
+   document.fonts.load('400 1em "Baskervville"'),
+   document.fonts.load('500 1em "Baskervville"'),
+   document.fonts.load('700 1em "Baskervville"'),
+   document.fonts.load('400 1em "Instrument Serif"'),
+   document.fonts.load('700 1em "Instrument Serif"'),
+   document.fonts.load('400 1em "Doto"')
+  ]);
+ } catch (error) {
+  console.warn("Could not fully preload fonts", error);
+ } finally {
+  document.body.classList.remove("fonts-loading");
+ }
+}
+
+function getHistoryItemById(historyId) {
+ return textHistory.find((item) => item.id === historyId);
+}
+
+function captureTextState() {
+ return {
+  history: textHistory.map((item) => ({ ...item })),
+  nextTextId,
+  blocks: Array.from(document.querySelectorAll(".floating-text")).map((el) => ({
+   historyId: Number(el.dataset.historyId),
+   left: el.style.left,
+   top: el.style.top,
+   leftRatio: parseStoredRatio(el.dataset.leftRatio),
+   topRatio: parseStoredRatio(el.dataset.topRatio),
+   selected: el.classList.contains("selected")
+  }))
+ };
+}
+
+function updateUndoButton() {
+ undoBtnEl.disabled = undoStack.length === 0;
+}
+
+function pushUndoState() {
+ if (isRestoringUndo) return;
+ undoStack.push(captureTextState());
+ if (undoStack.length > MAX_UNDO) {
+  undoStack.shift();
+ }
+ updateUndoButton();
+}
+
+function restoreTextState(state) {
+ isRestoringUndo = true;
+ textHistory.length = 0;
+ state.history.forEach((item) => textHistory.push({ ...item }));
+ nextTextId = state.nextTextId;
+ document.querySelectorAll(".floating-text").forEach((el) => el.remove());
+ state.blocks.forEach((block) => {
+  const historyItem = getHistoryItemById(block.historyId);
+  if (!historyItem) return;
+  const textEl = document.createElement("div");
+  textEl.className = "floating-text";
+  textEl.dataset.historyId = String(historyItem.id);
+  const contentEl = document.createElement("span");
+  contentEl.className = "floating-text-content";
+  contentEl.textContent = historyItem.content;
+  contentEl.style.fontSize = `${historyItem.fontSize || 38}px`;
+  const handleEl = document.createElement("div");
+  handleEl.className = "floating-resize-handle";
+  textEl.appendChild(contentEl);
+  textEl.appendChild(handleEl);
+  applyStoredPosition(textEl, block.leftRatio, block.topRatio, block.left, block.top);
+  document.body.appendChild(textEl);
+  makeTextDraggable(textEl);
+  makeTextResizable(textEl, contentEl, historyItem.id);
+  makeTextEditable(textEl, contentEl, historyItem.id);
+  if (block.selected) {
+   setSelectedFloatingText(textEl);
+  }
+ });
+ renderTextHistory();
+ applyTextSettings();
+ syncSectionStates();
+ isRestoringUndo = false;
+ saveSettings();
+}
+
+function undoLastAction() {
+ const state = undoStack.pop();
+ if (!state) return;
+ restoreTextState(state);
+ updateUndoButton();
+}
+
+function applyHistoryStyle(historyId) {
+ const historyItem = getHistoryItemById(historyId);
+ if (!historyItem) return;
+ document.querySelectorAll(`.floating-text[data-history-id="${historyId}"]`).forEach((el) => {
+  const contentEl = el.querySelector(".floating-text-content");
+  if (!contentEl) return;
+  const textDefaultResolved = activeTextFontName
+   ? `"${activeTextFontName}", ${textDefaultFontEl.value}`
+   : textDefaultFontEl.value;
+ const family = historyItem.fontFamily && historyItem.fontFamily !== "__text_default__"
+   ? historyItem.fontFamily
+   : textDefaultResolved;
+  const resolvedFontSize = Math.max(10, Number(historyItem.fontSize || Number(textSizeEl.value) || 38));
+  const textTracking = `${textTrackingEl.value}px`;
+  contentEl.style.fontFamily = family;
+  contentEl.style.fontWeight = textWeightEl.value;
+  contentEl.style.fontStyle = textStyleEl.value;
+  contentEl.style.letterSpacing = textTracking;
+  contentEl.style.lineHeight = textLineHeightEl.value;
+  contentEl.style.color = textFillColorEl.value;
+  contentEl.style.fontSize = `${resolvedFontSize}px`;
+ });
+}
+
+function makeTextEditable(wrapperEl, contentEl, historyId) {
+ contentEl.addEventListener("dblclick", () => {
+  wrapperEl.classList.add("editing");
+  contentEl.setAttribute("contenteditable", "true");
+  contentEl.focus();
+  document.getSelection()?.selectAllChildren(contentEl);
+ });
+
+ const saveEdit = () => {
+  const historyItem = getHistoryItemById(historyId);
+  if (!historyItem) return;
+  const nextText = contentEl.textContent.trim();
+ if (!nextText) {
+  contentEl.textContent = historyItem.content;
+ } else {
+   if (nextText !== historyItem.content) {
+    pushUndoState();
+   }
+   historyItem.content = nextText;
+   document.querySelectorAll(`.floating-text[data-history-id="${historyId}"] .floating-text-content`).forEach((el) => {
+    el.textContent = nextText;
+   });
+   renderTextHistory();
+   saveSettings();
+  }
+  contentEl.removeAttribute("contenteditable");
+  wrapperEl.classList.remove("editing");
+ };
+
+ contentEl.addEventListener("blur", saveEdit);
+ contentEl.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+   event.preventDefault();
+   contentEl.blur();
+  }
+  if (event.key === "Escape") {
+   event.preventDefault();
+   contentEl.textContent = getHistoryItemById(historyId)?.content || contentEl.textContent;
+   contentEl.blur();
+  }
+ });
+}
+
+function setSelectedFloatingText(target) {
+ document.querySelectorAll(".floating-text.selected").forEach((el) => {
+  if (el !== target) el.classList.remove("selected");
+ });
+ target.classList.add("selected");
+}
+
+addTextBtnEl.addEventListener("click", addFloatingText);
+undoBtnEl.addEventListener("click", undoLastAction);
+customTextInputEl.addEventListener("keydown", (event) => {
+ if (event.key === "Enter") {
+  addFloatingText();
+ }
+});
+textHistoryEl.addEventListener("click", (event) => {
+ const target = event.target.closest("button[data-action]");
+ if (!target || !textSettingsEnabledEl.checked) return;
+ const historyId = Number(target.dataset.id);
+ const action = target.dataset.action;
+ if (action === "place") {
+  placeHistoryText(historyId);
+  return;
+ }
+ if (action === "delete") {
+  deleteHistoryText(historyId);
+ }
+});
+textHistoryEl.addEventListener("input", (event) => {
+ const target = event.target;
+ if (!target || !textSettingsEnabledEl.checked) return;
+ const historyId = Number(target.dataset.id);
+ const action = target.dataset.action;
+ const historyItem = getHistoryItemById(historyId);
+ if (!historyItem) return;
+ if (action === "set-font") {
+  pushUndoState();
+  historyItem.fontFamily = target.value;
+  applyHistoryStyle(historyId);
+  saveSettings();
+  return;
+ }
+ if (action === "set-size") {
+  pushUndoState();
+  const nextSize = Math.max(10, Number(target.value) || 10);
+  historyItem.fontSize = nextSize;
+  applyHistoryStyle(historyId);
+  saveSettings();
+ }
+});
+document.addEventListener("pointermove", (event) => {
+ const nearDistance = 18;
+ document.querySelectorAll(".floating-text").forEach((el) => {
+  const rect = el.getBoundingClientRect();
+  const withinX = event.clientX >= rect.left - nearDistance && event.clientX <= rect.right + nearDistance;
+  const withinY = event.clientY >= rect.top - nearDistance && event.clientY <= rect.bottom + nearDistance;
+  el.classList.toggle("near", withinX && withinY);
+ });
+}, { passive: true });
+document.addEventListener("pointerdown", (event) => {
+ closeCustomSelects(event.target.closest(".custom-select"));
+ const wrapper = event.target.closest(".floating-text");
+ if (wrapper) {
+  setSelectedFloatingText(wrapper);
+  return;
+ }
+ document.querySelectorAll(".floating-text.selected").forEach((el) => el.classList.remove("selected"));
+});
+
+const settingsInputs = [
+ timeSettingsEnabledEl,
+ hourModeEl,
+ showSecondsEl,
+ showMillisecondsEl,
+ showMeridiemEl,
+ blinkColonEl,
+ timeDraggableEl,
+ fontSettingsEnabledEl,
+ textSettingsEnabledEl,
+ fontFamilyEl,
+ textDefaultFontEl,
+ textSizeEl,
+ textTrackingEl,
+ textLineHeightEl,
+ textWeightEl,
+ textStyleEl,
+ textFillColorEl,
+ fontWeightEl,
+ fontSizeEl,
+ lineHeightEl,
+ letterSpacingEl,
+ fontStyleEl,
+ textColorEl,
+ bgColorEl
+];
+
+function handleSettingsChange(event) {
+ const el = event.currentTarget;
+ if (el === fontFamilyEl) {
+  syncFontWeightOptions(fontFamilyEl, fontWeightEl, fontWeightEl.value);
+  refreshCustomSelect(fontFamilyEl);
+  refreshCustomSelect(fontWeightEl);
+ }
+ if (el === textDefaultFontEl) {
+  syncFontWeightOptions(textDefaultFontEl, textWeightEl, textWeightEl.value);
+  refreshCustomSelect(textDefaultFontEl);
+  refreshCustomSelect(textWeightEl);
+ }
+ if (el === timeDraggableEl && timeDraggableEl.value === "off") {
+  resetClockPosition();
+ }
+ syncSectionStates();
+ applyTextSettings();
+ updateTime();
+ textHistory.forEach((item) => applyHistoryStyle(item.id));
+ saveSettings();
+}
+
+settingsInputs.forEach((el) => {
+ el.addEventListener("input", handleSettingsChange);
+ el.addEventListener("change", handleSettingsChange);
+});
+
+themeBtnEl.addEventListener("click", () => {
+ const nextTheme = getCurrentTheme() === "dark" ? "light" : "dark";
+ shiftThemeColors(nextTheme);
+ applyTheme(nextTheme);
+ applyTextSettings();
+ textHistory.forEach((item) => applyHistoryStyle(item.id));
+ saveSettings();
+});
+
+hamburgerBtnEl.addEventListener("click", () => {
+ if (controlsEl.classList.contains("open")) {
+  closeSettingsPanel();
+  return;
+ }
+ openSettingsPanel();
+});
+closePanelBtnEl.addEventListener("click", closeSettingsPanel);
+panelBackdropEl.addEventListener("click", closeSettingsPanel);
+resetTimePosBtnEl.addEventListener("click", resetClockPosition);
+document.addEventListener("keydown", (event) => {
+ const target = event.target;
+ if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "z") {
+  if (!target?.isContentEditable) {
+   event.preventDefault();
+   undoLastAction();
+  }
+  return;
+ }
+ revealHamburger();
+ if (event.key === "Escape") {
+  closeSettingsPanel();
+ }
+});
+document.addEventListener("mousemove", () => {
+ revealHamburger();
+}, { passive: true });
+document.addEventListener("touchstart", () => {
+ revealHamburger();
+}, { passive: true });
+window.addEventListener("resize", () => {
+ if (window.innerWidth === lastViewportWidth && window.innerHeight === lastViewportHeight) return;
+ lastViewportWidth = window.innerWidth;
+ lastViewportHeight = window.innerHeight;
+ if (clockDragged) {
+  refreshElementPositionFromRatio(clockEl);
+ }
+ document.querySelectorAll(".floating-text").forEach((el) => {
+  refreshElementPositionFromRatio(el);
+  const leftPx = parseStoredPixel(el.style.left) ?? 0;
+  const topPx = parseStoredPixel(el.style.top) ?? 0;
+  setElementRelativePosition(
+   el,
+   clamp(leftPx, 0, Math.max(window.innerWidth - 24, 0)),
+   clamp(topPx, 0, Math.max(window.innerHeight - 24, 0))
+  );
+ });
+ saveSettings();
+});
+
+async function initializeApp() {
+ applyTheme("dark");
+ await loadSavedSettings();
+ syncFontWeightOptions(fontFamilyEl, fontWeightEl, fontWeightEl.value);
+ syncFontWeightOptions(textDefaultFontEl, textWeightEl, textWeightEl.value);
+ enhanceSettingsSelects();
+ document.querySelectorAll('input[type="number"]').forEach((inputEl) => enhanceNumberInput(inputEl));
+ applyTextSettings();
+ updateTime();
+ syncSectionStates();
+ renderTextHistory();
+ setupClockDrag();
+ if (!clockEl.style.left || !clockEl.style.top) {
+  resetClockPosition();
+ }
+ revealHamburger();
+ updateUndoButton();
+ waitForAppFonts();
+ settingsReady = true;
+ saveSettings();
+ if (!window.configApi?.loadConfig || !window.configApi?.saveConfig) {
+  showConfigStatus("Browser mode: refresh saves locally, Save/Load uses JSON files");
+ }
+}
+
+initializeApp();
+</script>
+
+</body>
+</html>
